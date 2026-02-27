@@ -5,7 +5,6 @@ import PyPDF2
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from groq import Groq
-from google import genai
 from dotenv import load_dotenv
 from werkzeug.utils import secure_filename
 
