@@ -8,10 +8,6 @@ from groq import Groq
 from dotenv import load_dotenv
 from werkzeug.utils import secure_filename
 
-# --------------------------------------------------
-# SETUP
-# --------------------------------------------------
-
 load_dotenv()
 
 app = Flask(__name__)
@@ -19,12 +15,7 @@ app.config["UPLOAD_FOLDER"] = "uploads"
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
-MAX_RESUME_CHARS = 4000   # safety limit for LLM
-
-
-# --------------------------------------------------
-# TEXT EXTRACTION
-# --------------------------------------------------
+MAX_RESUME_CHARS = 4000   
 
 def extract_text_from_pdf(path):
     text = ""
@@ -53,11 +44,6 @@ def extract_text(path):
     if path.endswith(".txt"):
         return extract_text_from_txt(path)
     return ""
-
-
-# --------------------------------------------------
-# AI FEEDBACK (GROQ)
-# --------------------------------------------------
 
 def ai_resume_feedback(job_description, resume_text, score):
     try:
@@ -175,11 +161,6 @@ def matcher():
         message="Top matching resumes:",
         results=results
     )
-
-
-# --------------------------------------------------
-# MAIN
-# --------------------------------------------------
 
 if __name__ == "__main__":
     os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
